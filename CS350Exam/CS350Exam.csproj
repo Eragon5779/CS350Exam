@@ -46,6 +46,7 @@
     <Compile Include="Product\PassHash.cs" />
     <Compile Include="Product\PBKDF2.cs" />
     <Compile Include="Product\Post.cs" />
+    <Compile Include="Product\Product.cs" />
     <Compile Include="Product\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

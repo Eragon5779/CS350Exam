@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CS350Exam.Product
 {
-    class Post
+    public class Post
     {
 
         public int ID { get; set; }

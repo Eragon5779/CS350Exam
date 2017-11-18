@@ -37,7 +37,7 @@ namespace CS350Exam.Product
             string attemptHash;
             using (var hmac = new HMACSHA512())
             {
-                var df = new Pbkdf2(hmac, Encoding.ASCII.GetBytes(password), Encoding.ASCII.GetBytes(passSalt), 30000);
+                var df = new Pbkdf2(hmac, Encoding.ASCII.GetBytes(password), Convert.FromBase64String(passSalt), 30000);
                 attemptHash = Convert.ToBase64String(df.GetBytes(64));
             }
             Console.WriteLine("\n\n" + attemptHash + "\n" + passHash + "\n\n");

@@ -11,10 +11,6 @@ namespace CS350Exam
     class Program
     {
 
-        public static List<User> users;
-        public static List<Post> posts;
-        public static string currentUser;
-
         static void Main(string[] args)
         {
 
@@ -32,24 +28,32 @@ namespace CS350Exam
             //Console.ReadLine();
 
             test_readUsers();
+            test_addUser();
+            test_writeUsers();
+            test_loginUser();
+            //Product.Product.writeUsers();
 
         }
 
-        public static bool readUsers()
-        {
-            try
-            {
-                users = DBContext.GetAllUsers();
-                return true;
-            } catch
-            {
-                return false;
-            }
-            
-        }
         public static void test_readUsers()
         {
-            Debug.Assert(readUsers() == true);
+            Debug.Assert(Product.Product.readUsers());
+        }
+
+        public static void test_addUser()
+        {
+            string[] saltHash = PassHash.CreatePassHash("test");
+            Debug.Assert(Product.Product.addUser("test", saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { }));
+        }
+
+        public static void test_writeUsers()
+        {
+            Debug.Assert(Product.Product.writeUsers());
+        }
+
+        public static void test_loginUser()
+        {
+            Debug.Assert(Product.Product.loginUser("test", "test"));
         }
 
 
