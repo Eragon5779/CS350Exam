@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace CS350Exam.Product
 {
-    public class Product
+    public class social_network
     {
 
         public static List<User> users;
         public static List<Post> posts;
-        public static string currentUser;
+        public static User currentUser;
 
         public static bool readUsers()
         {
             try
             {
-                users = DBContext.GetAllUsers();
+                users = Server.GetAllUsers();
                 return true;
             }
             catch
@@ -52,7 +52,7 @@ namespace CS350Exam.Product
         {
             try
             {
-                DBContext.WriteAllUsers(users);
+                Server.WriteAllUsers(users);
                 return true;
             } catch (InvalidOperationException ex)
             {
@@ -63,9 +63,50 @@ namespace CS350Exam.Product
             
         }
 
-        public static bool loginUser(string username, string password)
+        public static bool loginUser(string userID, string password)
         {
-            return users.Find(user => user.userID == username).VerifyPassword(password);
+            User tmp = users.Find(user => user.userID == userID);
+            if (tmp.VerifyPassword(password))
+            {
+                currentUser = tmp;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool deleteUser(string userID)
+        {
+            try
+            {
+                
+                User tmp = users.Find(user => user.userID == userID);
+                if (tmp != null) {
+                    Server.DeleteUser(tmp);
+                    users.Remove(tmp);
+                }
+                return true;
+            } catch
+            {
+                return false;
+            }
+            
+        }
+
+        public static bool addFriend(string userID, string friend)
+        {
+            try
+            {
+                users.Find(user => user.userID == friend).AddFriend(userID);
+                users.Find(user => user.userID == userID).AddFriend(friend);
+                return true;
+            } catch
+            {
+                return false;
+            }
+            
         }
 
     }

@@ -42,13 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Product\DBContext.cs" />
+    <Compile Include="Product\Server.cs" />
     <Compile Include="Product\PassHash.cs" />
     <Compile Include="Product\PBKDF2.cs" />
     <Compile Include="Product\Post.cs" />
-    <Compile Include="Product\Product.cs" />
+    <Compile Include="Product\social_network.cs" />
     <Compile Include="Product\User.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Testing\social_network_test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Documentation\" />
-    <Folder Include="Testing\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

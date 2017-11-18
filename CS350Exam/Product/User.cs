@@ -20,5 +20,10 @@ namespace CS350Exam.Product
             return PassHash.VerifyPass(password, passSalt, passHash);
         }
 
+        public void AddFriend(string friend)
+        {
+            friends.Add(friend);
+        }
+
     }
 }

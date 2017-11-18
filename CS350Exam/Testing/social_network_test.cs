@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using CS350Exam.Product;
 using System.Diagnostics;
 
-namespace CS350Exam
+namespace CS350Exam.Testing
 {
-    class Program
+    class social_network_test
     {
 
         static void Main(string[] args)
@@ -31,29 +31,40 @@ namespace CS350Exam
             test_addUser();
             test_writeUsers();
             test_loginUser();
-            //Product.Product.writeUsers();
+            test_addFriend();
+
+            social_network.writeUsers();
 
         }
 
         public static void test_readUsers()
         {
-            Debug.Assert(Product.Product.readUsers());
+            Debug.Assert(Product.social_network.readUsers());
         }
 
         public static void test_addUser()
         {
             string[] saltHash = PassHash.CreatePassHash("test");
-            Debug.Assert(Product.Product.addUser("test", saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { }));
+            Debug.Assert(social_network.addUser("test", saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { }));
         }
 
         public static void test_writeUsers()
         {
-            Debug.Assert(Product.Product.writeUsers());
+            Debug.Assert(social_network.writeUsers());
         }
 
         public static void test_loginUser()
         {
-            Debug.Assert(Product.Product.loginUser("test", "test"));
+            Debug.Assert(social_network.loginUser("test", "test"));
+        }
+
+        public static void test_addFriend()
+        {
+            string[] saltHash = PassHash.CreatePassHash("test");
+            Product.social_network.addUser("test2", saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { });
+
+            Debug.Assert(social_network.addFriend("test", "test2"));
+
         }
 
 
