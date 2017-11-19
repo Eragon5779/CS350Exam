@@ -139,7 +139,7 @@ PassHash is a password hashing class used to register and login users. It implem
 
 The Password-Based Key Derivation Function 2 algorithm for password hashing to slow down brute force attack of encrypted keys. [More info here](https://en.wikipedia.org/wiki/PBKDF2)
 
-I did not write this function, as there are plenty of people who have implemented it. Used implementation courtesy of [Medo](https://www.medo64.com), and can be found [here](https://www.medo64.com/2012/04/pbkdf2-with-sha-256-and-others/)
+I did not write this function, as there are plenty of people who have implemented it. Used implementation courtesy of [Medo](https://www.medo64.com), and can be found [here](https://www.medo64.com/2012/04/pbkdf2-with-sha-256-and-others/).
 
 As such, I will leave how this works to the previous links. In short, PBKDF2 returns a byte array for SHA512 hashing, and PassHash converts it to a Base64 string.
 
