@@ -24,6 +24,7 @@ namespace CS350Exam.Testing
             test_getFriends("test");
             test_addPost("test", "This is a test post");
             test_getFriendPosts("test");
+            test_deletePost("test", 1);
             test_writeAllData();
             test_resetData();
         }
