@@ -13,7 +13,7 @@ namespace CS350Exam.Testing
 
         static void Main(string[] args)
         {
-            test_readUsers();
+            test_readAllData();
             test_addUser("test", "test");
             test_loginUser("test", "test");
             test_addUser("test2", "test");
@@ -22,7 +22,10 @@ namespace CS350Exam.Testing
             test_addFriend("test", "test3");
             test_removeFriend("test", "test2");
             test_getFriends("test");
-            test_writeUsers();
+            test_addPost("test", "This is a test post");
+            test_getFriendPosts("test");
+            test_writeAllData();
+            test_resetData();
         }
 
         public static void test_readUsers()
@@ -55,9 +58,36 @@ namespace CS350Exam.Testing
         {
             Debug.Assert(social_network.removeFriend(userID, friendID));
         }
+
         public static void test_getFriends(string userID)
         {
             Debug.Assert(social_network.getFriends(userID) != null);
+        }
+
+        public static void test_addPost(string userID, string content)
+        {
+            Debug.Assert(social_network.addPost(userID, content));
+        }
+
+        public static void test_readPosts()
+        {
+            Debug.Assert(social_network.readPosts());
+        }
+
+        public static void test_readAllData()
+        {
+            test_readUsers();
+            test_readPosts();
+        }
+
+        public static void test_writeAllData()
+        {
+            Debug.Assert(social_network.writeAllData());
+        }
+
+        public static void test_getFriendPosts(string userID)
+        {
+            Debug.Assert(social_network.getFriendPosts(userID) != null);
         }
 
         public static void test_resetData()
@@ -65,6 +95,9 @@ namespace CS350Exam.Testing
             Debug.Assert(social_network.resetData());
         }
 
-
+        public static void test_deletePost(string userID, int postID)
+        {
+            Debug.Assert(social_network.deletePost(userID, postID));
+        }
     }
 }

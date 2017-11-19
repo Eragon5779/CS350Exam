@@ -37,5 +37,14 @@ namespace CS350Exam.Product
             }
         }
 
+        public void AddPost(int id)
+        {
+            if (!posts.Contains(id))
+            {
+                posts.Add(id);
+            }
+            
+        }
+
     }
 }

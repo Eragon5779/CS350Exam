@@ -10,18 +10,19 @@ namespace CS350Exam.Product
 {
     public class Server
     {
-        public static OdbcConnection conn = new OdbcConnection("Driver={MySQL ODBC 5.3 UNICODE Driver};" +
-                                                               "Server=dragonfirecomputing.com;" +
-                                                               "Database=eragon57_cs350;" +
-                                                               "User=eragon57_readdb;" +
-                                                               "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
-                                                               "OPTION=3");
+        public static OdbcConnection conn = new OdbcConnection();
 
         public static List<User> GetAllUsers()
         {
+            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
+                                    "Server=dragonfirecomputing.com;" +
+                                    "Database=eragon57_cs350;" +
+                                    "User=eragon57_readdb;" +
+                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
+                                    "OPTION=3";
             conn.Open();
-            List<User> users = new List<User>();
 
+            List<User> users = new List<User>();
             using (conn)
             {
                 OdbcCommand cmd = new OdbcCommand("SELECT * from user", conn);
@@ -56,6 +57,38 @@ namespace CS350Exam.Product
             return users;
         }
 
+        public static List<Post> GetAllPosts()
+        {
+            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
+                                    "Server=dragonfirecomputing.com;" +
+                                    "Database=eragon57_cs350;" +
+                                    "User=eragon57_readdb;" +
+                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
+                                    "OPTION=3";
+            conn.Open();
+            List<Post> posts = new List<Post>();
+
+            using (conn)
+            {
+                OdbcCommand cmd = new OdbcCommand("SELECT * from post", conn);
+                using (OdbcDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            postID = reader.GetInt32(reader.GetOrdinal("ID")),
+                            opID = reader.GetString(reader.GetOrdinal("opID")),
+                            content = reader.GetString(reader.GetOrdinal("content")),
+                            timeStamp = reader.GetString(reader.GetOrdinal("timeStamp"))
+                        });
+                    }
+                }
+            }
+            conn.Close();
+            return posts;
+        }
+
         public static void WriteAllUsers(List<User> users)
         {
             conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
@@ -67,31 +100,64 @@ namespace CS350Exam.Product
             conn.Open();
             using (conn)
             {
-                foreach (User user in users)
+                if (users != null)
                 {
-                    string friends = "";
-                    switch (user.friends.Count)
+                    foreach (User user in users)
                     {
-                        case 0: friends = ""; break;
-                        case 1: friends = user.friends[0]; break;
-                        default: friends = string.Join(",", user.friends); break;
-                    }
-                    string posts = "";
-                    switch (user.posts.Count)
-                    {
-                        case 0: posts = ""; break;
-                        case 1: posts = Convert.ToString(user.posts[0]); break;
-                        default: posts = string.Join(",", user.posts); break;
-                    }
+                        string friends = "";
+                        switch (user.friends.Count)
+                        {
+                            case 0: friends = ""; break;
+                            case 1: friends = user.friends[0]; break;
+                            default: friends = string.Join(",", user.friends); break;
+                        }
+                        string posts = "";
+                        switch (user.posts.Count)
+                        {
+                            case 0: posts = ""; break;
+                            case 1: posts = Convert.ToString(user.posts[0]); break;
+                            default: posts = string.Join(",", user.posts); break;
+                        }
 
-                    using (OdbcCommand cmd = new OdbcCommand("INSERT INTO user (userID, passSalt, passHash, posts, friends) VALUES (\"" +
-                                                              user.userID + "\",\"" + user.passSalt + "\",\"" + user.passHash + "\",\"" + posts + "\",\"" + friends + "\") " + 
-                                                              "ON DUPLICATE KEY UPDATE posts = \"" + posts + "\", friends = \"" + friends + "\""))
-                    {
-                        cmd.Connection = conn;
-                        cmd.ExecuteNonQuery();
+                        using (OdbcCommand cmd = new OdbcCommand("INSERT INTO user (userID, passSalt, passHash, posts, friends) VALUES (\"" +
+                                                                  user.userID + "\",\"" + user.passSalt + "\",\"" + user.passHash + "\",\"" + posts + "\",\"" + friends + "\") " + 
+                                                                  "ON DUPLICATE KEY UPDATE posts = \"" + posts + "\", friends = \"" + friends + "\""))
+                        {
+                            cmd.Connection = conn;
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                 }
+
+            }
+            conn.Close();
+        }
+
+        public static void WriteAllPosts(List<Post> posts)
+        {
+            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
+                                    "Server=dragonfirecomputing.com;" +
+                                    "Database=eragon57_cs350;" +
+                                    "User=eragon57_readdb;" +
+                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
+                                    "OPTION=3";
+            conn.Open();
+            using (conn)
+            {
+                if (posts != null)
+                {
+                   foreach (Post post in posts)
+                    {
+
+                        using (OdbcCommand cmd = new OdbcCommand("INSERT IGNORE INTO post (ID, opID, content, timeStamp) VALUES (\"" +
+                                                                  post.postID + "\",\"" + post.opID + "\",\"" + post.content + "\",\"" + post.timeStamp + "\")" ))
+                        {
+                            cmd.Connection = conn;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+ 
             }
             conn.Close();
         }
@@ -114,6 +180,12 @@ namespace CS350Exam.Product
 
         public static void ResetData()
         {
+            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
+                                    "Server=dragonfirecomputing.com;" +
+                                    "Database=eragon57_cs350;" +
+                                    "User=eragon57_readdb;" +
+                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
+                                    "OPTION=3";
             conn.Open();
 
             using (conn)

@@ -9,8 +9,8 @@ namespace CS350Exam.Product
     public class social_network
     {
 
-        public static List<User> users;
-        public static List<Post> posts;
+        public static List<User> users = new List<User>();
+        public static List<Post> posts = new List<Post>();
         public static User currentUser;
 
         public static bool readUsers()
@@ -33,6 +33,7 @@ namespace CS350Exam.Product
             {
                 if (!users.Contains(users.Find(user => user.userID == userID)))
                 {
+
                     users.Add(new User()
                     {
                         userID = userID,
@@ -41,15 +42,14 @@ namespace CS350Exam.Product
                         posts = posts ?? new List<int> { },
                         friends = friends ?? new List<string> { }
                     });
+
                 }
-                
                 return true;
             }
             catch
             {
                 return false;
             }
-
         }
 
         public static bool writeUsers()
@@ -58,13 +58,34 @@ namespace CS350Exam.Product
             {
                 Server.WriteAllUsers(users);
                 return true;
-            } catch (InvalidOperationException ex)
+            }
+            catch
             {
-                Console.WriteLine(ex);
-                Console.Read();
                 return false;
             }
             
+        }
+
+        public static bool writePosts()
+        {
+            try
+            {
+                Server.WriteAllPosts(posts);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.Read();
+                return false;
+            }
+        }
+
+        public static bool writeAllData()
+        {
+            bool wroteUsers = writeUsers();
+            bool wrotePosts = writePosts();
+            return wroteUsers == wrotePosts == true;
         }
 
         public static bool loginUser(string userID, string password)
@@ -88,11 +109,15 @@ namespace CS350Exam.Product
                 
                 User tmp = users.Find(user => user.userID == userID);
                 if (tmp != null) {
+
                     Server.DeleteUser(tmp);
                     users.Remove(tmp);
+
                 }
+
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -106,7 +131,8 @@ namespace CS350Exam.Product
                 users.Find(user => user.userID == friend).AddFriend(userID);
                 users.Find(user => user.userID == userID).AddFriend(friend);
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -120,7 +146,8 @@ namespace CS350Exam.Product
                 users.Find(user => user.userID == friend).RemoveFriend(userID);
                 users.Find(user => user.userID == userID).RemoveFriend(friend);
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
@@ -132,11 +159,51 @@ namespace CS350Exam.Product
             {
                 Server.ResetData();
                 return true;
-            } catch
+            }
+            catch
             {
                 return false;
             }
         }
+
+        public static bool addPost(string userID, string content)
+        {
+            try
+            {
+                int postID = posts.Count + 1;
+                posts.Add(new Post()
+                {
+                    postID = postID,
+                    opID = userID,
+                    content = content,
+                    timeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffffff")
+                });
+                users.Find(user => user.userID == userID).AddPost(postID);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.Read();
+                return false;
+            }
+            
+        }
+
+        public static bool readPosts()
+        {
+            try
+            {
+                posts = Server.GetAllPosts();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.Read();
+                return false;
+            }
+        } 
 
         public static List<string> getFriends(string userID)
         {
@@ -150,5 +217,35 @@ namespace CS350Exam.Product
             }
         }
 
+        public static List<int> getFriendPosts(string userID)
+        {
+            if (users.Contains(users.Find(user => user.userID == userID)))
+            {
+                List<int> friendPosts = new List<int>();
+                foreach (string friend in users.Find(user => user.userID == userID).friends)
+                {
+                    foreach (int postID in users.Find(user => user.userID == friend).posts)
+                    {
+                        friendPosts.Add(postID);
+                    }
+                }
+                return friendPosts;
+            }
+            return null;
+        }
+
+        public static bool deletePost(string userID, int postID)
+        {
+            try
+            {
+                posts.Remove(posts.Find(post => post.postID == postID));
+                users.Find(user => user.userID == userID).posts.Remove(postID);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
