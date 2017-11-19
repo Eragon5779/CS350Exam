@@ -138,5 +138,17 @@ namespace CS350Exam.Product
             }
         }
 
+        public static List<string> getFriends(string userID)
+        {
+            if (users.Contains(users.Find(user => user.userID == userID)))
+            {
+                return users.Find(user => user.userID == userID).friends;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

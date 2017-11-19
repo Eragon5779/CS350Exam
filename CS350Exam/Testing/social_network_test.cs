@@ -13,20 +13,6 @@ namespace CS350Exam.Testing
 
         static void Main(string[] args)
         {
-
-            //users = DBContext.GetAllUsers();
-
-            //Console.WriteLine(
-            //   "\nUser ID: " + users[0].userID + 
-            //    "\nPass Salt: " + users[0].passSalt +
-            //    "\nPass Hash: " + users[0].passHash +
-            //    "\nPosts: " + users[0].posts +
-            //    "\nFriends: " + users[0].friends
-            //    );
-            //User temp = users[0];
-            //Console.WriteLine(PassHash.VerifyPass("@rgetlam5779", temp.passSalt, temp.passHash));
-            //Console.ReadLine();
-
             test_readUsers();
             test_addUser("test", "test");
             test_loginUser("test", "test");
@@ -35,8 +21,8 @@ namespace CS350Exam.Testing
             test_addUser("test3", "test");
             test_addFriend("test", "test3");
             test_removeFriend("test", "test2");
+            test_getFriends("test");
             test_writeUsers();
-
         }
 
         public static void test_readUsers()
@@ -68,6 +54,10 @@ namespace CS350Exam.Testing
         public static void test_removeFriend(string userID, string friendID)
         {
             Debug.Assert(social_network.removeFriend(userID, friendID));
+        }
+        public static void test_getFriends(string userID)
+        {
+            Debug.Assert(social_network.getFriends(userID) != null);
         }
 
         public static void test_resetData()
