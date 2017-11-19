@@ -75,6 +75,11 @@ namespace CS350Exam.Testing
             Debug.Assert(social_network.readPosts());
         }
 
+        public static void test_writePosts()
+        {
+            Debug.Assert(social_network.writePosts())
+;        }
+
         public static void test_readAllData()
         {
             test_readUsers();
@@ -99,6 +104,11 @@ namespace CS350Exam.Testing
         public static void test_deletePost(string userID, int postID)
         {
             Debug.Assert(social_network.deletePost(userID, postID));
+        }
+
+        public static void test_deleteUser(string userID)
+        {
+            Debug.Assert(social_network.deleteUser(userID));
         }
     }
 }

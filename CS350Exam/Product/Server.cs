@@ -164,11 +164,39 @@ namespace CS350Exam.Product
 
         public static void DeleteUser(User user)
         {
+            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
+                                    "Server=dragonfirecomputing.com;" +
+                                    "Database=eragon57_cs350;" +
+                                    "User=eragon57_readdb;" +
+                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
+                                    "OPTION=3";
             conn.Open();
 
             using (conn)
             {
                 using (OdbcCommand cmd = new OdbcCommand("DELETE FROM user WHERE userID = \"" + user.userID + "\""))
+                {
+                    cmd.Connection = conn;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            conn.Close();
+        }
+
+        public static void DeletePost(Post post)
+        {
+            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
+                                    "Server=dragonfirecomputing.com;" +
+                                    "Database=eragon57_cs350;" +
+                                    "User=eragon57_readdb;" +
+                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
+                                    "OPTION=3";
+            conn.Open();
+
+            using (conn)
+            {
+                using (OdbcCommand cmd = new OdbcCommand("DELETE FROM post WHERE ID = \"" + post.postID + "\""))
                 {
                     cmd.Connection = conn;
                     cmd.ExecuteNonQuery();

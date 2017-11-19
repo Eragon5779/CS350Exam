@@ -239,7 +239,7 @@ namespace CS350Exam.Product
             try
             {
                 posts.Remove(posts.Find(post => post.postID == postID));
-                users.Find(user => user.userID == userID).posts.Remove(postID);
+                users.Find(user => user.userID == userID).RemovePost(postID);
                 return true;
             }
             catch

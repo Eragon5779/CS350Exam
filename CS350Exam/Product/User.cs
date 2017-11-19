@@ -46,5 +46,14 @@ namespace CS350Exam.Product
             
         }
 
+        public void RemovePost(int id)
+        {
+            if (posts.Contains(id))
+            {
+                posts.Remove(id);
+            }
+
+        }
+
     }
 }
