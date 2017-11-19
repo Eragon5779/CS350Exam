@@ -29,11 +29,9 @@ namespace CS350Exam.Testing
 
             test_readUsers();
             test_addUser();
-            test_writeUsers();
             test_loginUser();
             test_addFriend();
-
-            social_network.writeUsers();
+            test_writeUsers();
 
         }
 
@@ -61,10 +59,14 @@ namespace CS350Exam.Testing
         public static void test_addFriend()
         {
             string[] saltHash = PassHash.CreatePassHash("test");
-            Product.social_network.addUser("test2", saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { });
+            social_network.addUser("test2", saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { });
 
             Debug.Assert(social_network.addFriend("test", "test2"));
+        }
 
+        public static void test_resetData()
+        {
+            Debug.Assert(social_network.resetData());
         }
 
 

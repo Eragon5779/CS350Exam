@@ -109,5 +109,17 @@ namespace CS350Exam.Product
             
         }
 
+        public static bool resetData()
+        {
+            try
+            {
+                Server.ResetData();
+                return true;
+            } catch
+            {
+                return false;
+            }
+        }
+
     }
 }

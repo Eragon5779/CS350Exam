@@ -42,7 +42,6 @@ namespace CS350Exam.Product
                                         reader.GetString(reader.GetOrdinal("posts")).Split(',').Select(i => int.Parse(i)).ToList() :
                                         new List<int>() { Convert.ToInt32(reader.GetString(reader.GetOrdinal("posts"))) } :
                                     new List<int>() { },
-                                
 
                             friends = reader.GetString(reader.GetOrdinal("friends")).Length > 0 ?
                                       reader.GetString(reader.GetOrdinal("friends")).Split(',').Select(i => Convert.ToString(i)).ToList().Count > 0 ?
@@ -70,9 +69,24 @@ namespace CS350Exam.Product
             {
                 foreach (User user in users)
                 {
+                    string friends = "";
+                    switch (user.friends.Count)
+                    {
+                        case 0: friends = ""; break;
+                        case 1: friends = user.friends[0]; break;
+                        default: friends = string.Join(",", user.friends); break;
+                    }
+                    string posts = "";
+                    switch (user.posts.Count)
+                    {
+                        case 0: posts = ""; break;
+                        case 1: posts = Convert.ToString(user.posts[0]); break;
+                        default: posts = string.Join(",", user.posts); break;
+                    }
+
                     using (OdbcCommand cmd = new OdbcCommand("INSERT INTO user (userID, passSalt, passHash, posts, friends) VALUES (\"" +
-                                                              user.userID + "\",\"" + user.passSalt + "\",\"" + user.passHash + "\",\"" + string.Join(",", user.posts) + "\",\"" + string.Join(",", user.friends) + "\") " + 
-                                                              "ON DUPLICATE KEY UPDATE posts = \"" + string.Join(",", user.posts) + "\", friends = \"" + string.Join(",", user.friends) + "\""))
+                                                              user.userID + "\",\"" + user.passSalt + "\",\"" + user.passHash + "\",\"" + posts + "\",\"" + friends + "\") " + 
+                                                              "ON DUPLICATE KEY UPDATE posts = \"" + posts + "\", friends = \"" + friends + "\""))
                     {
                         cmd.Connection = conn;
                         cmd.ExecuteNonQuery();

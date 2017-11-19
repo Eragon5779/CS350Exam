@@ -40,7 +40,6 @@ namespace CS350Exam.Product
                 var df = new Pbkdf2(hmac, Encoding.ASCII.GetBytes(password), Convert.FromBase64String(passSalt), 30000);
                 attemptHash = Convert.ToBase64String(df.GetBytes(64));
             }
-            Console.WriteLine("\n\n" + attemptHash + "\n" + passHash + "\n\n");
             return (attemptHash == passHash);
 
         }
