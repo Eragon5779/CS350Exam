@@ -22,7 +22,19 @@ namespace CS350Exam.Product
 
         public void AddFriend(string friend)
         {
-            friends.Add(friend);
+            if (!friends.Contains(friend))
+            {
+                friends.Add(friend);
+            } 
+            
+        }
+
+        public void RemoveFriend(string friend)
+        {
+            if (friends.Contains(friend))
+            {
+                friends.Remove(friend);
+            }
         }
 
     }

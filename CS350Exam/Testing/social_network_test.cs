@@ -28,9 +28,13 @@ namespace CS350Exam.Testing
             //Console.ReadLine();
 
             test_readUsers();
-            test_addUser();
-            test_loginUser();
-            test_addFriend();
+            test_addUser("test", "test");
+            test_loginUser("test", "test");
+            test_addUser("test2", "test");
+            test_addFriend("test", "test2");
+            test_addUser("test3", "test");
+            test_addFriend("test", "test3");
+            test_removeFriend("test", "test2");
             test_writeUsers();
 
         }
@@ -40,10 +44,10 @@ namespace CS350Exam.Testing
             Debug.Assert(Product.social_network.readUsers());
         }
 
-        public static void test_addUser()
+        public static void test_addUser(string userID, string password)
         {
-            string[] saltHash = PassHash.CreatePassHash("test");
-            Debug.Assert(social_network.addUser("test", saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { }));
+            string[] saltHash = PassHash.CreatePassHash(password);
+            Debug.Assert(social_network.addUser(userID, saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { }));
         }
 
         public static void test_writeUsers()
@@ -51,17 +55,19 @@ namespace CS350Exam.Testing
             Debug.Assert(social_network.writeUsers());
         }
 
-        public static void test_loginUser()
+        public static void test_loginUser(string userID, string password)
         {
-            Debug.Assert(social_network.loginUser("test", "test"));
+            Debug.Assert(social_network.loginUser(userID, password));
         }
 
-        public static void test_addFriend()
+        public static void test_addFriend(string userID, string friendID)
         {
-            string[] saltHash = PassHash.CreatePassHash("test");
-            social_network.addUser("test2", saltHash[0], saltHash[1], new List<int>() { }, new List<string>() { });
+            Debug.Assert(social_network.addFriend(userID, friendID));
+        }
 
-            Debug.Assert(social_network.addFriend("test", "test2"));
+        public static void test_removeFriend(string userID, string friendID)
+        {
+            Debug.Assert(social_network.removeFriend(userID, friendID));
         }
 
         public static void test_resetData()

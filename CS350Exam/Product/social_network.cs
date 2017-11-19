@@ -31,14 +31,18 @@ namespace CS350Exam.Product
         {
             try
             {
-                users.Add(new User()
+                if (!users.Contains(users.Find(user => user.userID == userID)))
                 {
-                    userID = userID,
-                    passSalt = passSalt,
-                    passHash = passHash,
-                    posts = posts == null ? new List<int> { } : posts,
-                    friends = friends == null ? new List<string> { } : friends
-                });
+                    users.Add(new User()
+                    {
+                        userID = userID,
+                        passSalt = passSalt,
+                        passHash = passHash,
+                        posts = posts ?? new List<int> { },
+                        friends = friends ?? new List<string> { }
+                    });
+                }
+                
                 return true;
             }
             catch
@@ -107,6 +111,19 @@ namespace CS350Exam.Product
                 return false;
             }
             
+        }
+
+        public static bool removeFriend(string userID, string friend)
+        {
+            try
+            {
+                users.Find(user => user.userID == friend).RemoveFriend(userID);
+                users.Find(user => user.userID == userID).RemoveFriend(friend);
+                return true;
+            } catch
+            {
+                return false;
+            }
         }
 
         public static bool resetData()
