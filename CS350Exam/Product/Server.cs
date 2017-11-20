@@ -11,15 +11,16 @@ namespace CS350Exam.Product
     public class Server
     {
         public static OdbcConnection conn = new OdbcConnection();
+        public static string connString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
+                                          "Server=dragonfirecomputing.com;" +
+                                          "Database=eragon57_cs350;" +
+                                          "User=eragon57_readdb;" +
+                                          "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
+                                          "OPTION=3";
 
         public static List<User> GetAllUsers()
         {
-            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
-                                    "Server=dragonfirecomputing.com;" +
-                                    "Database=eragon57_cs350;" +
-                                    "User=eragon57_readdb;" +
-                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
-                                    "OPTION=3";
+            conn.ConnectionString = connString;
             conn.Open();
 
             List<User> users = new List<User>();
@@ -59,12 +60,7 @@ namespace CS350Exam.Product
 
         public static List<Post> GetAllPosts()
         {
-            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
-                                    "Server=dragonfirecomputing.com;" +
-                                    "Database=eragon57_cs350;" +
-                                    "User=eragon57_readdb;" +
-                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
-                                    "OPTION=3";
+            conn.ConnectionString = connString;
             conn.Open();
             List<Post> posts = new List<Post>();
 
@@ -91,12 +87,7 @@ namespace CS350Exam.Product
 
         public static void WriteAllUsers(List<User> users)
         {
-            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
-                                    "Server=dragonfirecomputing.com;" +
-                                    "Database=eragon57_cs350;" +
-                                    "User=eragon57_readdb;" +
-                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
-                                    "OPTION=3";
+            conn.ConnectionString = connString;
             conn.Open();
             using (conn)
             {
@@ -135,12 +126,7 @@ namespace CS350Exam.Product
 
         public static void WriteAllPosts(List<Post> posts)
         {
-            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
-                                    "Server=dragonfirecomputing.com;" +
-                                    "Database=eragon57_cs350;" +
-                                    "User=eragon57_readdb;" +
-                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
-                                    "OPTION=3";
+            conn.ConnectionString = connString;
             conn.Open();
             using (conn)
             {
@@ -164,12 +150,7 @@ namespace CS350Exam.Product
 
         public static void DeleteUser(User user)
         {
-            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
-                                    "Server=dragonfirecomputing.com;" +
-                                    "Database=eragon57_cs350;" +
-                                    "User=eragon57_readdb;" +
-                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
-                                    "OPTION=3";
+            conn.ConnectionString = connString;
             conn.Open();
 
             using (conn)
@@ -186,12 +167,7 @@ namespace CS350Exam.Product
 
         public static void DeletePost(Post post)
         {
-            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
-                                    "Server=dragonfirecomputing.com;" +
-                                    "Database=eragon57_cs350;" +
-                                    "User=eragon57_readdb;" +
-                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
-                                    "OPTION=3";
+            conn.ConnectionString = connString;
             conn.Open();
 
             using (conn)
@@ -208,12 +184,7 @@ namespace CS350Exam.Product
 
         public static void ResetData()
         {
-            conn.ConnectionString = "Driver={MySQL ODBC 5.3 UNICODE Driver};" +
-                                    "Server=dragonfirecomputing.com;" +
-                                    "Database=eragon57_cs350;" +
-                                    "User=eragon57_readdb;" +
-                                    "Password=Ce2GoMCdneDEQGAv5dKVQl95XiTHD0QM;" +
-                                    "OPTION=3";
+            conn.ConnectionString = connString;
             conn.Open();
 
             using (conn)
