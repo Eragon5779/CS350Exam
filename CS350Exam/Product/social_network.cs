@@ -166,7 +166,7 @@ namespace CS350Exam.Product
             }
         }
 
-        public static bool addPost(string userID, string content)
+        public static bool addPost(string userID, string content, string tagged)
         {
             try
             {
@@ -176,7 +176,8 @@ namespace CS350Exam.Product
                     postID = postID,
                     opID = userID,
                     content = content,
-                    timeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffffff")
+                    timeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffffff"),
+                    tagged = tagged
                 });
                 users.Find(user => user.userID == userID).AddPost(postID);
                 return true;

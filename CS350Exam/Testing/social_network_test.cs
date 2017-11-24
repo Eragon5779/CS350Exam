@@ -23,6 +23,8 @@ namespace CS350Exam.Testing
             test_removeFriend("test", "test2");
             test_getFriends("test");
             test_addPost("test", "This is a test post");
+            // Test add post with tagged friend
+            test_addPost("test", "This is a test tag", "test3");
             test_getFriendPosts("test");
             test_deletePost("test", 1);
             test_writeAllData();
@@ -65,9 +67,9 @@ namespace CS350Exam.Testing
             Debug.Assert(social_network.getFriends(userID) != null);
         }
 
-        public static void test_addPost(string userID, string content)
+        public static void test_addPost(string userID, string content, string tagged = "")
         {
-            Debug.Assert(social_network.addPost(userID, content));
+            Debug.Assert(social_network.addPost(userID, content, tagged));
         }
 
         public static void test_readPosts()

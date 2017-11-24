@@ -76,7 +76,8 @@ namespace CS350Exam.Product
                             postID = reader.GetInt32(reader.GetOrdinal("ID")),
                             opID = reader.GetString(reader.GetOrdinal("opID")),
                             content = reader.GetString(reader.GetOrdinal("content")),
-                            timeStamp = reader.GetString(reader.GetOrdinal("timeStamp"))
+                            timeStamp = reader.GetString(reader.GetOrdinal("timeStamp")),
+                            tagged = reader.GetString(reader.GetOrdinal("tagged"))
                         });
                     }
                 }
@@ -135,8 +136,8 @@ namespace CS350Exam.Product
                    foreach (Post post in posts)
                     {
 
-                        using (OdbcCommand cmd = new OdbcCommand("INSERT IGNORE INTO post (ID, opID, content, timeStamp) VALUES (\"" +
-                                                                  post.postID + "\",\"" + post.opID + "\",\"" + post.content + "\",\"" + post.timeStamp + "\")" ))
+                        using (OdbcCommand cmd = new OdbcCommand("INSERT IGNORE INTO post (ID, opID, content, timeStamp, tagged) VALUES (\"" +
+                                                                  post.postID + "\",\"" + post.opID + "\",\"" + post.content + "\",\"" + post.timeStamp + "\", \"" + post.tagged + "\")" ))
                         {
                             cmd.Connection = conn;
                             cmd.ExecuteNonQuery();
