@@ -47,6 +47,7 @@
     <Compile Include="Product\PBKDF2.cs" />
     <Compile Include="Product\Post.cs" />
     <Compile Include="Product\social_network.cs" />
+    <Compile Include="Product\social_network_single.cs" />
     <Compile Include="Product\User.cs" />
     <Compile Include="Testing\social_network_test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

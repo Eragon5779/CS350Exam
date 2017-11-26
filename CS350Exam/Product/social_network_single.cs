@@ -8,7 +8,7 @@ using System.Data;
 using System.Security;
 using System.Security.Cryptography;
 
-namespace CS350Exam.Product
+namespace CS350Exam.Final
 {
     public class social_network
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CS350Exam.Product;
+using CS350Exam.Final;
 using System.Diagnostics;
 
 namespace CS350Exam.Testing
@@ -33,7 +33,7 @@ namespace CS350Exam.Testing
 
         public static void test_readUsers()
         {
-            Debug.Assert(Product.social_network.readUsers());
+            Debug.Assert(Final.social_network.readUsers());
         }
 
         public static void test_addUser(string userID, string password)
